@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  searchBookInfoUrl: 'http://http://api-bukubako.herokuapp.com/search?page={0}&q={1}',
+  searchBookDetailsInfoUrl: 'http://api-bukubako.herokuapp.com/books/{0}'
 };
 
 /*
