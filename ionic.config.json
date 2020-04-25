@@ -1,0 +1,7 @@
+{
+  "name": "bukubako-web",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
