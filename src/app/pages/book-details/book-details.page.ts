@@ -12,8 +12,16 @@ export class BookDetailsPage implements OnInit {
 
   private bookDetails: BookDetails;
 
+  /**
+   * コンストラクタ
+   * @param router ルーター
+   * @param service 検索サービス
+   */
   constructor(private router: ActivatedRoute, private service: SearchService) { }
 
+  /**
+   * 初期化
+   */
   ngOnInit() {
     this.router.paramMap.subscribe(params => {
       const detailUri = params.get('detailUri');

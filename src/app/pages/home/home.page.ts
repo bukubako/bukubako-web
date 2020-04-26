@@ -15,16 +15,17 @@ export class HomePage {
 
   private page = 30;
 
+  /**
+   * コンストラクタ
+   * @param searchService 検索サービス
+   * @param router ルーター
+   */
   constructor(private searchService: SearchService, private router: Router) {
     this.items = [];
   }
 
   /**
-   * <dl>
-   * <dt><b>メソッド概要: </b></dt>
-   * <dd>本検索結果取得</dd>
-   * </dl>
-   *
+   * 本検索結果取得
    * @param event イベント
    */
   getItems(event: any) {
@@ -36,10 +37,19 @@ export class HomePage {
     });
   }
 
+  /**
+   * 書籍詳細画面へ遷移
+   * @param event イベント
+   * @param index インデックス
+   */
   toBookDetailsPage(event: any, index: number) {
     this.router.navigate(['/book-details', {detailUri: this.items[index].detailUri}]);
   }
 
+  /**
+   * スクロール開始時に検索APIをCallし、リストを更新
+   * @param event イベント
+   */
   onScrollEvent(event: any) {
     this.page += 10;
     this.searchService.searchBookInfo(this.page, event.target.value)
