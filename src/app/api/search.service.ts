@@ -25,9 +25,9 @@ export class SearchService {
 
   /**
    * 書籍詳細検索
-   * @param id ID
+   * @param uri URI
    */
-  searchDetailsBook(id: string): Observable<BookDetails> {
-    return this.http.get<BookDetails>(String.Format(environment.searchBookDetailsInfoUrl, id));
+  searchDetailsBook(uri: string): Observable<BookDetails> {
+    return this.http.get<BookDetails>(uri);
   }
 }
