@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Output, Input } from '@angular/core';
 import { SearchService } from '../../api/search.service';
 import { Item } from '../../model/item';
+import { Router } from '@angular/router';
+import { Book } from 'src/app/model/book';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +13,9 @@ export class HomePage {
 
   private items: Item[];
 
-  private page = 10;
+  private page = 30;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private router: Router) {
     this.items = [];
   }
 
@@ -27,10 +29,24 @@ export class HomePage {
    */
   getItems(event: any) {
     this.items = [];
+    this.page = 30;
     this.searchService.searchBookInfo(this.page, event.target.value)
     .subscribe(book => {
-      console.log(book);
       this.items = book.items;
+    });
+  }
+
+  toBookDetailsPage(event: any, index: number) {
+    this.router.navigate(['/book-details', {detailUri: this.items[index].detailUri}]);
+  }
+
+  onScrollEvent(event: any) {
+    this.page += 10;
+    this.searchService.searchBookInfo(this.page, event.target.value)
+    .subscribe(book => {
+      book.items.forEach(item => {
+        this.items.push(item);
+      });
     });
   }
 }

@@ -1,18 +1,21 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
+    <ion-title class="ion-text-center">
       bukubako
     </ion-title>
   </ion-toolbar>
-  <ion-searchbar (ionInput)="getItems($event)" >
+  <ion-searchbar (ionChange)="getItems($event)" >
   </ion-searchbar>
 </ion-header>
 
-<ion-content>
+<ion-content
+  [scrollEvents]="true">
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      {{item.title}}<br />
-      {{item.authors.join("/")}}
+    <ion-item *ngFor="let item of items; let i = index;" (click)="toBookDetailsPage($event, i)">
+      <ion-text>
+        {{item?.title}} <br />
+        {{item?.authors?.join("/")}}
+      </ion-text>
     </ion-item>
   </ion-list>
 </ion-content>
