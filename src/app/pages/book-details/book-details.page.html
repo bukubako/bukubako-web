@@ -1,9 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>book-details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" left></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">bukubako</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+  <ion-img style="width:50%; height: 40%;" [src]="bookDetails?.imageUri"></ion-img>
+  <ion-item>
+    <ion-label>
+      {{bookDetails?.title}}
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      {{bookDetails?.authors.join('/')}}
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-text>
+      {{bookDetails?.description}}
+    </ion-text>
+  </ion-item>
 </ion-content>
