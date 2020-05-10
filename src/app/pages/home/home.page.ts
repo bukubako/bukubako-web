@@ -37,7 +37,7 @@ export class HomePage {
     this.items = [];
     this.page = 10;
     this.searchService.searchBookInfo(this.page, this.searchValue)
-    .subscribe(book => {
+    .subscribe((book: Book) => {
       this.items = book.items;
       this.nextPageUri = book.nextPageUri;
     });
@@ -48,7 +48,7 @@ export class HomePage {
    * @param event イベント
    * @param index インデックス
    */
-  toBookDetailsPage(event: any, index: number) {
+  toBookDetailsPage(index: number) {
     this.router.navigate(['/book-details', {detailUri: this.items[index].detailUri}]);
   }
 
@@ -58,8 +58,8 @@ export class HomePage {
    */
   doRefresh(event: any) {
     this.searchService.searchNextBookInfo(this.nextPageUri)
-    .subscribe(book => {
-      book.items.forEach(item => {
+    .subscribe((book: Book) => {
+      book.items.forEach((item: Item) => {
         this.items.push(item);
       });
       this.nextPageUri = book.nextPageUri;
