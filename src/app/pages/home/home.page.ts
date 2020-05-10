@@ -33,9 +33,12 @@ export class HomePage {
    * @param event イベント
    */
   getItems(event: any) {
+    this.searchValue = event.target.value;
+    if (this.searchValue === '') {
+      return;
+    }
     this.items = [];
     this.page = 10;
-    this.searchValue = event.target.value;
     this.searchService.searchBookInfo(this.page, this.searchValue)
     .subscribe(book => {
       this.items = book.items;
