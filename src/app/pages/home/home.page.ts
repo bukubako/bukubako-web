@@ -34,9 +34,6 @@ export class HomePage {
    */
   getItems(event: any) {
     this.searchValue = event.target.value;
-    if (this.searchValue === '') {
-      return;
-    }
     this.items = [];
     this.page = 10;
     this.searchService.searchBookInfo(this.page, this.searchValue)
