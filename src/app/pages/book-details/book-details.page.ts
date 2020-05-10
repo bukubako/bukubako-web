@@ -24,7 +24,7 @@ export class BookDetailsPage implements OnInit {
    */
   ngOnInit() {
     this.router.paramMap.subscribe(params => {
-      const detailUri: string = params.get('detailUri').toString();
+      const detailUri = params.get('detailUri');
       this.service.searchDetailsBook(detailUri).subscribe((bookDetails: BookDetails) => {
         this.bookDetails = bookDetails;
       });
