@@ -8,8 +8,10 @@
   </ion-searchbar>
 </ion-header>
 
-<ion-content
-  [scrollEvents]="true">
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item *ngFor="let item of items; let i = index;" (click)="toBookDetailsPage($event, i)">
       <ion-text>

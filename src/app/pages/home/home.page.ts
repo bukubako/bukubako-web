@@ -13,7 +13,11 @@ export class HomePage {
 
   private items: Item[];
 
-  private page = 30;
+  private page: number;
+
+  private searchValue: string;
+
+  private nextPageUri: string;
 
   /**
    * コンストラクタ
@@ -30,10 +34,12 @@ export class HomePage {
    */
   getItems(event: any) {
     this.items = [];
-    this.page = 30;
-    this.searchService.searchBookInfo(this.page, event.target.value)
+    this.page = 10;
+    this.searchValue = event.target.value;
+    this.searchService.searchBookInfo(this.page, this.searchValue)
     .subscribe(book => {
       this.items = book.items;
+      this.nextPageUri = book.nextPageUri;
     });
   }
 
@@ -50,13 +56,14 @@ export class HomePage {
    * スクロール開始時に検索APIをCallし、リストを更新
    * @param event イベント
    */
-  onScrollEvent(event: any) {
-    this.page += 10;
-    this.searchService.searchBookInfo(this.page, event.target.value)
+  doRefresh(event: any) {
+    this.searchService.searchNextBookInfo(this.nextPageUri)
     .subscribe(book => {
       book.items.forEach(item => {
         this.items.push(item);
       });
+      this.nextPageUri = book.nextPageUri;
+      event.target.complete();
     });
   }
 }

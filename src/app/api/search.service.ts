@@ -24,6 +24,14 @@ export class SearchService {
   }
 
   /**
+   * 次ページにある書籍情報
+   * @param book 書籍情報
+   */
+  searchNextBookInfo(nextPageUri: string): Observable<Book> {
+    return this.http.get<Book>(nextPageUri);
+  }
+
+  /**
    * 書籍詳細検索
    * @param uri URI
    */
