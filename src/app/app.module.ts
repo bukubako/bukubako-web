@@ -11,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -18,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule],
+    HttpClientModule,
+    ZXingScannerModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,

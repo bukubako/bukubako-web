@@ -1,8 +1,9 @@
-import { Component, Output, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SearchService } from '../../api/search.service';
 import { Item } from '../../model/item';
 import { Router } from '@angular/router';
-import { Book } from 'src/app/model/book';
+import { BarcodeFormat } from '@zxing/library';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +20,18 @@ export class HomePage {
 
   private nextPageUri: string;
 
+  private readyScan: boolean;
+
+  private hasPermission: boolean;
+
   /**
    * コンストラクタ
    * @param searchService 検索サービス
    * @param router ルーター
    */
-  constructor(private searchService: SearchService, private router: Router) {
+  constructor(private searchService: SearchService,
+              private router: Router,
+              private alertController: AlertController) {
     this.items = [];
   }
 
@@ -65,5 +72,30 @@ export class HomePage {
       this.nextPageUri = book.nextPageUri;
       event.target.complete();
     });
+  }
+
+  /**
+   * 解析実行
+   * @param event イベント
+   */
+  executeScan(event: any) {
+    this.readyScan = true;
+  }
+
+  /**
+   * 解析成功時処理
+   * @param evt 解析結果
+   */
+  async scanSuccessHandler(evt: any) {
+    if (this.readyScan) {
+      const alert = await this.alertController.create({
+        header: 'ISBN取得結果',
+        subHeader: '取得結果の加工等はしていない。',
+        message: evt,
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+    this.readyScan = false;
   }
 }

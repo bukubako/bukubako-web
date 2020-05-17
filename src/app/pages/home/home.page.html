@@ -21,3 +21,14 @@
     </ion-item>
   </ion-list>
 </ion-content>
+
+<ion-item>
+  <ion-badge slot="end" (click)="executeScan($event)">
+    <ion-icon name="camera" class="icon-size">
+      <zxing-scanner 
+        [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
+        (scanSuccess)="scanSuccessHandler($event)">
+      </zxing-scanner>
+    </ion-icon>
+  </ion-badge>
+</ion-item>
