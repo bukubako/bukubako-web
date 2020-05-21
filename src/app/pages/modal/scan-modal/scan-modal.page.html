@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      バーコードスキャン画面
+    </ion-title>
+    <ion-buttons slot="end">
+        <ion-button (click)="close()"><ion-icon name="close"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <zxing-scanner 
+    [autofocusEnabled]="true"
+    [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
+    [(device)]="currentDevice"
+    (torchCompatible)="onTorchCompatible($event)"
+    (camerasFound)="camerasFoundHandler($event)" 
+    (scanSuccess)="scanSuccessHandler($event)">
+  </zxing-scanner>
+
+  <ion-label>ISBN = {{result}}</ion-label>
+</ion-content>

@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { SearchService } from '../../api/search.service';
 import { Item } from '../../model/item';
 import { Router } from '@angular/router';
-import { BarcodeFormat } from '@zxing/library';
-import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { ScanModalPage } from '../modal/scan-modal/scan-modal.page';
 
 @Component({
   selector: 'app-home',
@@ -20,10 +20,6 @@ export class HomePage {
 
   private nextPageUri: string;
 
-  private readyScan: boolean;
-
-  private hasPermission: boolean;
-
   /**
    * コンストラクタ
    * @param searchService 検索サービス
@@ -31,7 +27,7 @@ export class HomePage {
    */
   constructor(private searchService: SearchService,
               private router: Router,
-              private alertController: AlertController) {
+              private modalController: ModalController) {
     this.items = [];
   }
 
@@ -74,28 +70,11 @@ export class HomePage {
     });
   }
 
-  /**
-   * 解析実行
-   * @param event イベント
-   */
-  executeScan(event: any) {
-    this.readyScan = true;
-  }
-
-  /**
-   * 解析成功時処理
-   * @param evt 解析結果
-   */
-  async scanSuccessHandler(evt: any) {
-    if (this.readyScan) {
-      const alert = await this.alertController.create({
-        header: 'ISBN取得結果',
-        subHeader: '取得結果の加工等はしていない。',
-        message: evt,
-        buttons: ['OK']
-      });
-      alert.present();
-    }
-    this.readyScan = false;
+  async startScan(event: any) {
+    const page = await this.modalController.create({
+      component: ScanModalPage,
+      cssClass: 'scan-modal-css'
+    });
+    return await page.present();
   }
 }

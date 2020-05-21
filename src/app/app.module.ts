@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ScanModalPageModule } from './pages/modal/scan-modal/scan-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    ScanModalPageModule
   ],
   providers: [
     StatusBar,

@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'book-details',
     loadChildren: () => import('./pages/book-details/book-details.module').then( m => m.BookDetailsPageModule)
   },
+  {
+    path: 'scan-modal',
+    loadChildren: () => import('./pages/modal/scan-modal/scan-modal.module').then( m => m.ScanModalPageModule)
+  }
 ];
 
 @NgModule({

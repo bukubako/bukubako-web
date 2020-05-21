@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { ScanModalPage } from '../modal/scan-modal/scan-modal.page';
 
 
 @NgModule({
