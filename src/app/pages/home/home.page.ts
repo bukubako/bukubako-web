@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { SearchService } from '../../api/search.service';
 import { Item } from '../../model/item';
 import { Router } from '@angular/router';
@@ -27,7 +27,8 @@ export class HomePage {
    */
   constructor(private searchService: SearchService,
               private router: Router,
-              private modalController: ModalController) {
+              private modalController: ModalController,
+              private element: ElementRef) {
     this.items = [];
   }
 
@@ -60,8 +61,7 @@ export class HomePage {
    * @param event イベント
    */
   doRefresh(event: any) {
-    this.searchService.searchNextBookInfo(this.nextPageUri)
-    .subscribe(book => {
+    this.searchService.searchNextBookInfo(this.nextPageUri).subscribe(book => {
       book.items.forEach(item => {
         this.items.push(item);
       });
@@ -70,11 +70,25 @@ export class HomePage {
     });
   }
 
+  /**
+   * カメラボタン押下時の処理
+   * @param event イベント
+   */
   async startScan(event: any) {
+
+    // 解析画面へ遷移
     const page = await this.modalController.create({
       component: ScanModalPage,
-      cssClass: 'scan-modal-css'
+      cssClass: 'scan-modal-css',
     });
-    return await page.present();
+    await page.present();
+    const { data }  = await page.onDidDismiss();
+
+    // 取得したISBNを使用して書籍情報を取得
+    this.searchService.searchBookInfoByIsbn(data).subscribe(book => {
+      console.log(book);
+      this.items = book.items;
+      this.nextPageUri = book.nextPageUri;
+    });
   }
 }

@@ -8,8 +8,6 @@ import { ModalController } from '@ionic/angular';
 })
 export class ScanModalPage implements OnInit {
 
-  private result: string;
-
   constructor(private modalController: ModalController) { }
 
   ngOnInit() {
@@ -20,22 +18,18 @@ export class ScanModalPage implements OnInit {
    * 解析成功時処理
    * @param evt 解析結果
    */
-  async scanSuccessHandler(evt: any) {
-    console.log(evt);
-    this.result = evt;
+  async scanSuccessHandler(result: string) {
+    console.log(result);
+    if (result === null || result === undefined) {
+      return;
+    }
+    await this.modalController.dismiss(result);
   }
 
-  camerasFoundHandler(evt: any) {
-    console.log('camerasFoundHandler');
-    console.log(evt);
-  }
-
-  onTorchCompatible(event: any) {
-    console.log('onTorchCompatible');
-    console.log(event);
-  }
-
-  close() {
-    this.modalController.dismiss();
+  /**
+   * モーダル閉じる処理
+   */
+  async close() {
+    await this.modalController.dismiss();
   }
 }

@@ -13,11 +13,6 @@
   <zxing-scanner 
     [autofocusEnabled]="true"
     [formats]="['QR_CODE', 'EAN_13', 'CODE_128', 'DATA_MATRIX']"
-    [(device)]="currentDevice"
-    (torchCompatible)="onTorchCompatible($event)"
-    (camerasFound)="camerasFoundHandler($event)" 
     (scanSuccess)="scanSuccessHandler($event)">
   </zxing-scanner>
-
-  <ion-label>ISBN = {{result}}</ion-label>
 </ion-content>

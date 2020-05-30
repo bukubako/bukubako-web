@@ -38,4 +38,12 @@ export class SearchService {
   searchDetailsBook(uri: string): Observable<BookDetails> {
     return this.http.get<BookDetails>(uri);
   }
+
+  /**
+   * 書籍検索（ISBN使用）
+   * @param isbn ISBN
+   */
+  searchBookInfoByIsbn(isbn: string): Observable<Book> {
+    return this.http.get<Book>(String.Format(environment.searchBookByIsbn, isbn));
+  }
 }
