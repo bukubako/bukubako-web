@@ -1,8 +1,8 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { SearchService } from '../../api/search.service';
 import { Item } from '../../model/item';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { ScanModalPage } from '../modal/scan-modal/scan-modal.page';
 
 @Component({
@@ -28,7 +28,7 @@ export class HomePage {
   constructor(private searchService: SearchService,
               private router: Router,
               private modalController: ModalController,
-              private element: ElementRef) {
+              private toastController: ToastController) {
     this.items = [];
   }
 
@@ -84,8 +84,12 @@ export class HomePage {
     await page.present();
     const { data }  = await page.onDidDismiss();
 
-    // 解析結果をconsole.log出力
-    console.log(data);
+    // 解析結果をtoast
+    const toast = await this.toastController.create({
+      message: data,
+      duration: 2000
+    });
+    toast.present();
 
     // 取得したISBNを使用して書籍情報を取得
     this.searchService.searchBookInfoByIsbn(data).subscribe(book => {
