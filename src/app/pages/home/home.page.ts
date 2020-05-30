@@ -84,6 +84,9 @@ export class HomePage {
     await page.present();
     const { data }  = await page.onDidDismiss();
 
+    // 解析結果をconsole.log出力
+    console.log(data);
+
     // 取得したISBNを使用して書籍情報を取得
     this.searchService.searchBookInfoByIsbn(data).subscribe(book => {
       console.log(book);
