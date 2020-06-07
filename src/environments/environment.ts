@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  searchBookInfoUrl: 'http://api-bukubako.herokuapp.com/search?page={0}&q={1}',
-  searchBookDetailsInfoUrl: 'http://api-bukubako.herokuapp.com/books/{0}',
-  searchBookByIsbn: 'http://api-bukubako.herokuapp.com/search?isbn={0}'
+  searchBookInfoUrl: 'https://api.bukubako.com/search?page={0}&q={1}',
+  searchBookDetailsInfoUrl: 'https://api.bukubako.com/books/{0}',
+  searchBookByIsbn: 'https://api.bukubako.com/search?isbn={0}'
 };
 
 /*
